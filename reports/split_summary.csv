@@ -1,0 +1,4 @@
+split,start,end,days,transactions,frauds,fraud_rate_pct,fraud_amount_usd,share_of_rows_pct
+train,2019-01-01,2020-04-06,461,1110690,6386,0.575,3392366.0,60.0
+validation,2020-04-07,2020-08-24,140,371005,1907,0.514,990992.0,20.0
+test,2020-08-25,2020-12-31,129,370699,1358,0.366,738055.0,20.0

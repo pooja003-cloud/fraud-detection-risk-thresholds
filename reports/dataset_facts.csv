@@ -1,0 +1,11 @@
+,value
+Transactions,"1,852,394"
+Fraudulent transactions,"9,651"
+Fraud rate,0.521%
+Legit : fraud ratio,191 : 1
+Fraud dollar share,3.95%
+Date range,2019-01-01 to 2020-12-31
+Cards (customers),999
+Merchants,693
+Merchant categories,14
+Avg transactions per day,"2,538"

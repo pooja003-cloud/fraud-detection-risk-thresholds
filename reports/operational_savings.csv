@@ -1,0 +1,3 @@
+comparison,saving_usd,ci95_low,ci95_high,test_days
+"LightGBM + auto-hold, triage bands (recommended) vs Rules + auto-hold (same policy)",189543.65000000002,149957.781,231378.7415,129
+"LightGBM + auto-hold, triage bands (recommended) vs Rules, review only (current process)",240181.11000000002,189230.609,295658.42325,129

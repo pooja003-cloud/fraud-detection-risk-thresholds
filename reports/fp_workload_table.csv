@@ -1,0 +1,9 @@
+option,split,alerts_per_day,analysts,alerts_per_analyst_per_day,capacity_per_analyst_per_day,utilisation_pct,false_alerts_per_analyst_per_day,precision,analysts_needed,within_capacity
+Cost-minimising,validation,21.21,2,10.6,50,21.21,3.92,0.63,1,True
+Cost-minimising,test,17.3,2,8.65,50,17.3,3.52,0.59,1,True
+Capacity-constrained (fill 100/day),validation,99.98,2,49.99,50,99.98,43.19,0.14,2,True
+Capacity-constrained (fill 100/day),test,88.53,2,44.27,50,88.53,39.03,0.12,2,True
+Recall target (80%),validation,11.0,2,5.5,50,11.0,0.04,0.99,1,True
+Recall target (80%),test,8.3,2,4.15,50,8.3,0.02,1.0,1,True
+Rules baseline (current process),validation,46.41,2,23.2,50,46.41,17.77,0.23,1,True
+Rules baseline (current process),test,50.14,2,25.07,50,50.14,20.78,0.17,2,True

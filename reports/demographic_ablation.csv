@@ -1,0 +1,3 @@
+model,val_pr_auc,diff_vs_production
+Production (no demographics),0.9757053210765482,0.0
+"Ablation (+ age, gender)",0.9836271108968462,0.007921789820298009

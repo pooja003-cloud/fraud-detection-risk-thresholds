@@ -1,0 +1,3 @@
+fraud group,frauds,share_of_fraud,fraud_usd,recall_at_threshold,pr_auc_vs_all_legit
+On-pattern (night & >= $250),855,0.6296023564064801,604043.46,0.9941520467836257,0.988833570917121
+Off-pattern (day or < $250),503,0.3703976435935199,134011.6,0.9403578528827038,0.889910472856443

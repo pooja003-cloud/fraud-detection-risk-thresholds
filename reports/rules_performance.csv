@@ -1,0 +1,9 @@
+rule,definition,split,alerts,precision,recall,f1
+R1 high amount at night,Amount >= $250 between 22:00 and 04:00,train,10353,0.3912875495025596,0.6343564046351393,0.48401935599498175
+R2 24h spend spike,Card spend in last 24h (incl. this txn) >= $2500,train,6641,0.42644180093359435,0.4434700908236768,0.4347892837951946
+R3 far above customer norm,Amount >= 8x the customer's historical average (min. 30 prior txns),train,9679,0.24981919619795434,0.3786407766990291,0.30102707749766566
+"R4 high-risk category, large amount","Category in ('shopping_net', 'misc_net', 'grocery_pos') and amount >= $750",train,3723,0.5414987912973409,0.31569057312871907,0.3988525076664359
+R1 high amount at night,Amount >= $250 between 22:00 and 04:00,validation,3240,0.37006172839506174,0.6287362349239644,0.46590246745677094
+R2 24h spend spike,Card spend in last 24h (incl. this txn) >= $2500,validation,2111,0.39081004263382285,0.4326166754063975,0.4106520657043305
+R3 far above customer norm,Amount >= 8x the customer's historical average (min. 30 prior txns),validation,3250,0.244,0.41583639223911906,0.30754314523948034
+"R4 high-risk category, large amount","Category in ('shopping_net', 'misc_net', 'grocery_pos') and amount >= $750",validation,1146,0.49214659685863876,0.29575249082328264,0.369472649852604

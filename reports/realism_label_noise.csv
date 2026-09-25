@@ -1,0 +1,4 @@
+unreported_fraud_cards,train_frauds_labelled,test_pr_auc_true_labels
+0%,6386,0.9654766343525241
+20%,5130,0.9496699910546725
+40%,3803,0.9188720836057972

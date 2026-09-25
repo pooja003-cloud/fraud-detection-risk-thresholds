@@ -1,0 +1,21 @@
+feature,mean_abs_shap,label
+log_amt,1.351587303831086,Transaction amount (log)
+amt_sum_prior_24h,1.1975427110699168,Card spend in prior 24h ($)
+is_night,1.077159663233049,Night-time (22:00-04:00)
+category,1.0357343588088317,Merchant category
+cust_n_prior_txn,0.6919669746291234,Card history length (txns)
+n_txn_prior_24h,0.5725277309849669,Card transactions in prior 24h
+amt_to_cust_avg,0.43195230228822173,Amount / customer's historical average
+amt_to_cust_category_avg,0.39324843227020545,Amount / customer's average in this category
+hours_since_last_txn,0.38599799868497187,Hours since card's previous transaction
+n_txn_prior_7d,0.32183667413932426,Card transactions in prior 7d
+hour,0.2846441388727184,Hour of day
+amt_zscore_cust,0.26007906846201523,Amount z-score vs customer history
+log_city_pop,0.21012078983334256,Customer city population (log)
+amt_to_cust_avg_7d,0.20182013258570916,Amount / customer's 7-day average
+day_of_week,0.1722024023374853,Day of week
+amt_sum_prior_1h,0.1645295565136568,Card spend in prior 1h ($)
+dist_home_merchant_km,0.13628960395863018,Distance home to merchant (km)
+is_first_merchant_for_cust,0.12101976618896898,First time at this merchant
+n_txn_prior_1h,0.05487010032781003,Card transactions in prior 1h
+is_first_category_for_cust,0.006847211961806215,First time in this category

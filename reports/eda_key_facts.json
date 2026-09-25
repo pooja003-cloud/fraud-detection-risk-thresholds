@@ -1,0 +1,13 @@
+{
+  "night_share_of_fraud": 0.8464407833385141,
+  "night_share_of_volume": 0.23484258748408815,
+  "night_vs_day_fraud_rate_ratio": 17.959515877808567,
+  "amt250_share_of_volume": 0.029109897786324074,
+  "amt250_share_of_fraud": 0.745207750492177,
+  "top3_categories": [
+    "shopping_net",
+    "misc_net",
+    "grocery_pos"
+  ],
+  "top3_category_share_of_fraud_usd": 0.7526286685669231
+}

@@ -1,0 +1,9 @@
+assumption,value,rationale
+Fraud loss per missed fraud,Transaction amount x (1 - recovery rate),"Direct loss; the amount is available per transaction, so no flat average is needed"
+Chargeback / recovery rate,0%,Conservative: assume nothing is recovered. Partial recovery is covered by the -50% loss sensitivity
+Review cost per alert,$5.00,~8 minutes of analyst time at a ~$40/hour fully loaded cost
+Analysts,2,"Small fraud-ops team sized to this portfolio (~2,500-2,900 transactions/day)"
+Reviews per analyst per day,50,"~8 minutes each over a ~7-hour working day, with time left for escalations"
+Daily review capacity,100 alerts/day,Analysts x reviews per analyst
+Recall target,80%,Example of a policy-driven target (e.g. a risk-appetite statement)
+Cost variant used,All alerts (TP + FP) incur the review cost,"Analysts review every alert, not only the false ones"

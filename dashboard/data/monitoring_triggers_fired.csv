@@ -1,0 +1,2 @@
+period,trigger,detail,labels_mature
+2020-12,Any feature PSI > 0.2,"n_txn_prior_24h, amt_sum_prior_24h",False

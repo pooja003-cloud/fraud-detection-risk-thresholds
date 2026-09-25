@@ -1,0 +1,1044 @@
+{
+  "dataset": {
+    "Transactions": "1,852,394",
+    "Fraudulent transactions": "9,651",
+    "Fraud rate": "0.521%",
+    "Legit : fraud ratio": "191 : 1",
+    "Fraud dollar share": "3.95%",
+    "Date range": "2019-01-01 to 2020-12-31",
+    "Cards (customers)": "999",
+    "Merchants": "693",
+    "Merchant categories": "14",
+    "Avg transactions per day": "2,538"
+  },
+  "split": [
+    {
+      "split": "train",
+      "start": "2019-01-01",
+      "end": "2020-04-06",
+      "days": 461,
+      "transactions": 1110690,
+      "frauds": 6386,
+      "fraud_rate_pct": 0.575,
+      "fraud_amount_usd": 3392366.0,
+      "share_of_rows_pct": 60.0
+    },
+    {
+      "split": "validation",
+      "start": "2020-04-07",
+      "end": "2020-08-24",
+      "days": 140,
+      "transactions": 371005,
+      "frauds": 1907,
+      "fraud_rate_pct": 0.514,
+      "fraud_amount_usd": 990992.0,
+      "share_of_rows_pct": 20.0
+    },
+    {
+      "split": "test",
+      "start": "2020-08-25",
+      "end": "2020-12-31",
+      "days": 129,
+      "transactions": 370699,
+      "frauds": 1358,
+      "fraud_rate_pct": 0.366,
+      "fraud_amount_usd": 738055.0,
+      "share_of_rows_pct": 20.0
+    }
+  ],
+  "model_selection": {
+    "lr_C": 0.001,
+    "rf_min_samples_leaf": 5,
+    "lgbm_treatment": "SMOTE to 1:10",
+    "lgbm_num_leaves": 15,
+    "lgbm_n_trees": 1504,
+    "f1_thresholds_from_validation": {
+      "Rules baseline": 1.0,
+      "Logistic regression": 0.9632313385400147,
+      "Random forest": 0.436565504815986,
+      "LightGBM": 0.28450878187350687,
+      "LightGBM (undersampled)": 0.9068411946691832
+    },
+    "rules": [
+      {
+        "name": "R1 high amount at night",
+        "definition": "Amount >= $250 between 22:00 and 04:00"
+      },
+      {
+        "name": "R2 24h spend spike",
+        "definition": "Card spend in last 24h (incl. this txn) >= $2500"
+      },
+      {
+        "name": "R3 far above customer norm",
+        "definition": "Amount >= 8x the customer's historical average (min. 30 prior txns)"
+      },
+      {
+        "name": "R4 high-risk category, large amount",
+        "definition": "Category in ('shopping_net', 'misc_net', 'grocery_pos') and amount >= $750"
+      }
+    ]
+  },
+  "test_pr_auc": {
+    "Rules baseline": 0.4132607572583514,
+    "Logistic regression": 0.6369806090648059,
+    "Random forest": 0.9257249409103548,
+    "LightGBM": 0.9697150711170136,
+    "LightGBM (undersampled)": 0.965476634352524
+  },
+  "test_pr_auc_ci": {
+    "Rules baseline": "0.369-0.454",
+    "Logistic regression": "0.589-0.686",
+    "Random forest": "0.906-0.941",
+    "LightGBM": "0.960-0.978",
+    "LightGBM (undersampled)": "0.954-0.974"
+  },
+  "val_pr_auc": {
+    "Rules baseline": 0.4247689482419209,
+    "Logistic regression": 0.6279655378610864,
+    "Random forest": 0.9385771047169958,
+    "LightGBM": 0.9757053210765482,
+    "LightGBM (undersampled)": 0.967604353164834
+  },
+  "test_at_f1_threshold": {
+    "Rules baseline": {
+      "precision": 0.170995670995671,
+      "recall": 0.8144329896907216,
+      "TP": 1106,
+      "FP": 5362,
+      "FN": 252,
+      "alerts_per_day": 50.13953488372093
+    },
+    "Logistic regression": {
+      "precision": 0.6859083191850595,
+      "recall": 0.5949926362297496,
+      "TP": 808,
+      "FP": 370,
+      "FN": 550,
+      "alerts_per_day": 9.131782945736434
+    },
+    "Random forest": {
+      "precision": 0.920767306088407,
+      "recall": 0.812960235640648,
+      "TP": 1104,
+      "FP": 95,
+      "FN": 254,
+      "alerts_per_day": 9.294573643410851
+    },
+    "LightGBM": {
+      "precision": 0.9546520719311964,
+      "recall": 0.8991163475699558,
+      "TP": 1221,
+      "FP": 58,
+      "FN": 137,
+      "alerts_per_day": 9.914728682170542
+    },
+    "LightGBM (undersampled)": {
+      "precision": 0.9384255650818394,
+      "recall": 0.8865979381443299,
+      "TP": 1204,
+      "FP": 79,
+      "FN": 154,
+      "alerts_per_day": 9.945736434108529
+    }
+  },
+  "recommended_threshold": 0.008447008853411628,
+  "threshold_options": {
+    "Cost-minimising": {
+      "validation": {
+        "threshold": 0.0084470088534116,
+        "alerts_per_day": 21.207142857142856,
+        "TP": 1871.0,
+        "FP": 1098.0,
+        "FN": 36.0,
+        "precision": 0.6301785112832604,
+        "recall": 0.9811221814368116,
+        "fraud_caught_usd": 985998.4700000014,
+        "fraud_missed_usd": 4993.79999999865,
+        "review_cost_all_alerts_usd": 14845.0,
+        "total_cost_usd": 19838.79999999865
+      },
+      "test": {
+        "threshold": 0.0084470088534116,
+        "alerts_per_day": 17.302325581395348,
+        "TP": 1323.0,
+        "FP": 909.0,
+        "FN": 35.0,
+        "precision": 0.592741935483871,
+        "recall": 0.9742268041237112,
+        "fraud_caught_usd": 727644.0700000006,
+        "fraud_missed_usd": 10410.989999999409,
+        "review_cost_all_alerts_usd": 11160.0,
+        "total_cost_usd": 21570.98999999941
+      }
+    },
+    "Capacity-constrained (fill 100/day)": {
+      "validation": {
+        "threshold": 0.0001692830162339,
+        "alerts_per_day": 99.97857142857144,
+        "TP": 1904.0,
+        "FP": 12093.0,
+        "FN": 3.0,
+        "precision": 0.1360291491033793,
+        "recall": 0.9984268484530676,
+        "fraud_caught_usd": 990958.7400000014,
+        "fraud_missed_usd": 33.52999999863096,
+        "review_cost_all_alerts_usd": 69985.0,
+        "total_cost_usd": 70018.52999999863
+      },
+      "test": {
+        "threshold": 0.0001692830162339,
+        "alerts_per_day": 88.53488372093024,
+        "TP": 1350.0,
+        "FP": 10071.0,
+        "FN": 8.0,
+        "precision": 0.1182033096926714,
+        "recall": 0.9941089837997056,
+        "fraud_caught_usd": 737825.2900000006,
+        "fraud_missed_usd": 229.76999999943652,
+        "review_cost_all_alerts_usd": 57105.0,
+        "total_cost_usd": 57334.76999999944
+      }
+    },
+    "Recall target (80%)": {
+      "validation": {
+        "threshold": 0.8889368437434058,
+        "alerts_per_day": 11.0,
+        "TP": 1528.0,
+        "FP": 12.0,
+        "FN": 379.0,
+        "precision": 0.9922077922077922,
+        "recall": 0.8012585212375459,
+        "fraud_caught_usd": 840603.0400000016,
+        "fraud_missed_usd": 150389.22999999847,
+        "review_cost_all_alerts_usd": 7700.0,
+        "total_cost_usd": 158089.22999999847
+      },
+      "test": {
+        "threshold": 0.8889368437434058,
+        "alerts_per_day": 8.30232558139535,
+        "TP": 1067.0,
+        "FP": 4.0,
+        "FN": 291.0,
+        "precision": 0.996265172735761,
+        "recall": 0.7857142857142857,
+        "fraud_caught_usd": 616698.7800000001,
+        "fraud_missed_usd": 121356.27999999993,
+        "review_cost_all_alerts_usd": 5355.0,
+        "total_cost_usd": 126711.27999999993
+      }
+    }
+  },
+  "rules_test": {
+    "alerts": 6468.0,
+    "alerts_per_day": 50.13953488372093,
+    "TP": 1106.0,
+    "FP": 5362.0,
+    "FN": 252.0,
+    "precision": 0.170995670995671,
+    "recall": 0.8144329896907216,
+    "fraud_caught_usd": 717171.27,
+    "fraud_missed_usd": 20883.79,
+    "dollar_recall": 0.9717042926309588,
+    "total_cost_usd": 53223.78999999957
+  },
+  "lgbm_same_volume_test": {
+    "alerts": 6468.0,
+    "alerts_per_day": 50.13953488372093,
+    "TP": 1347.0,
+    "FP": 5121.0,
+    "FN": 11.0,
+    "precision": 0.2082560296846011,
+    "recall": 0.991899852724595,
+    "fraud_caught_usd": 735927.25,
+    "fraud_missed_usd": 2127.81,
+    "dollar_recall": 0.9971170037097232,
+    "total_cost_usd": 34467.809999999474
+  },
+  "headline": {
+    "test_days": 129,
+    "lgbm_alerts_per_day": 17.302325581395348,
+    "rules_alerts_per_day": 50.13953488372093,
+    "alert_reduction_pct": 65.49165120593692,
+    "lgbm_recall": 0.9742268041237112,
+    "rules_recall": 0.8144329896907216,
+    "lgbm_precision": 0.592741935483871,
+    "rules_precision": 0.170995670995671,
+    "lgbm_fp": 909.0,
+    "rules_fp": 5362.0,
+    "fp_reduction_pct": 83.047370384185,
+    "lgbm_tp": 1323.0,
+    "rules_tp": 1106.0,
+    "lgbm_fraud_missed_usd": 10410.989999999409,
+    "rules_fraud_missed_usd": 20883.79,
+    "lgbm_total_cost_usd": 21570.98999999941,
+    "rules_total_cost_usd": 53223.78999999957,
+    "cost_saving_usd": 31652.800000000163,
+    "cost_saving_pct": 59.471150025205674,
+    "lgbm_val_alerts_per_day": 21.207142857142856,
+    "lgbm_val_precision": 0.6301785112832604,
+    "lgbm_val_recall": 0.9811221814368116,
+    "same_volume_extra_frauds": 241.0,
+    "same_volume_lgbm_recall": 0.991899852724595,
+    "capacity_utilisation_pct": 17.3,
+    "rules_false_alert_share_pct": 83.0,
+    "sensitivity_alerts_per_day_range": [
+      16.764285714285716,
+      27.564285714285717
+    ],
+    "sensitivity_recall_range": [
+      0.9664394336654432,
+      0.9863660199265862
+    ]
+  },
+  "segment_error_analysis": [
+    {
+      "segment": "entertainment",
+      "segment_type": "category",
+      "transactions": 26794,
+      "frauds": 33,
+      "alerts": 84,
+      "TP": 33,
+      "FP": 51,
+      "recall": 1.0,
+      "precision": 0.3928571428571428,
+      "false_alert_rate_per_10k_legit": 19.05758379731699
+    },
+    {
+      "segment": "food_dining",
+      "segment_type": "category",
+      "transactions": 25896,
+      "frauds": 30,
+      "alerts": 122,
+      "TP": 28,
+      "FP": 94,
+      "recall": 0.9333333333333332,
+      "precision": 0.2295081967213114,
+      "false_alert_rate_per_10k_legit": 36.3411428129591
+    },
+    {
+      "segment": "gas_transport",
+      "segment_type": "category",
+      "transactions": 37603,
+      "frauds": 103,
+      "alerts": 117,
+      "TP": 103,
+      "FP": 14,
+      "recall": 1.0,
+      "precision": 0.8803418803418803,
+      "false_alert_rate_per_10k_legit": 3.733333333333333
+    },
+    {
+      "segment": "grocery_net",
+      "segment_type": "category",
+      "transactions": 13135,
+      "frauds": 25,
+      "alerts": 76,
+      "TP": 24,
+      "FP": 52,
+      "recall": 0.96,
+      "precision": 0.3157894736842105,
+      "false_alert_rate_per_10k_legit": 39.66437833714721
+    },
+    {
+      "segment": "grocery_pos",
+      "segment_type": "category",
+      "transactions": 35213,
+      "frauds": 314,
+      "alerts": 320,
+      "TP": 314,
+      "FP": 6,
+      "recall": 1.0,
+      "precision": 0.98125,
+      "false_alert_rate_per_10k_legit": 1.7192469698272157
+    },
+    {
+      "segment": "health_fitness",
+      "segment_type": "category",
+      "transactions": 24413,
+      "frauds": 23,
+      "alerts": 60,
+      "TP": 21,
+      "FP": 39,
+      "recall": 0.9130434782608696,
+      "precision": 0.35,
+      "false_alert_rate_per_10k_legit": 15.990159901599016
+    },
+    {
+      "segment": "home",
+      "segment_type": "category",
+      "transactions": 34978,
+      "frauds": 36,
+      "alerts": 84,
+      "TP": 35,
+      "FP": 49,
+      "recall": 0.9722222222222222,
+      "precision": 0.4166666666666667,
+      "false_alert_rate_per_10k_legit": 14.023238509530078
+    },
+    {
+      "segment": "kids_pets",
+      "segment_type": "category",
+      "transactions": 32364,
+      "frauds": 36,
+      "alerts": 90,
+      "TP": 32,
+      "FP": 58,
+      "recall": 0.8888888888888888,
+      "precision": 0.3555555555555555,
+      "false_alert_rate_per_10k_legit": 17.941103687206137
+    },
+    {
+      "segment": "misc_net",
+      "segment_type": "category",
+      "transactions": 18365,
+      "frauds": 181,
+      "alerts": 267,
+      "TP": 178,
+      "FP": 89,
+      "recall": 0.9834254143646408,
+      "precision": 0.6666666666666666,
+      "false_alert_rate_per_10k_legit": 48.94412670479542
+    },
+    {
+      "segment": "misc_pos",
+      "segment_type": "category",
+      "transactions": 23051,
+      "frauds": 41,
+      "alerts": 136,
+      "TP": 38,
+      "FP": 98,
+      "recall": 0.926829268292683,
+      "precision": 0.2794117647058823,
+      "false_alert_rate_per_10k_legit": 42.59017818339852
+    },
+    {
+      "segment": "personal_care",
+      "segment_type": "category",
+      "transactions": 26175,
+      "frauds": 42,
+      "alerts": 121,
+      "TP": 34,
+      "FP": 87,
+      "recall": 0.8095238095238095,
+      "precision": 0.2809917355371901,
+      "false_alert_rate_per_10k_legit": 33.29124095970612
+    },
+    {
+      "segment": "shopping_net",
+      "segment_type": "category",
+      "transactions": 27734,
+      "frauds": 342,
+      "alerts": 473,
+      "TP": 340,
+      "FP": 133,
+      "recall": 0.9941520467836256,
+      "precision": 0.718816067653277,
+      "false_alert_rate_per_10k_legit": 48.55432242990654
+    },
+    {
+      "segment": "shopping_pos",
+      "segment_type": "category",
+      "transactions": 33346,
+      "frauds": 128,
+      "alerts": 235,
+      "TP": 123,
+      "FP": 112,
+      "recall": 0.9609375,
+      "precision": 0.5234042553191489,
+      "false_alert_rate_per_10k_legit": 33.71665964236257
+    },
+    {
+      "segment": "travel",
+      "segment_type": "category",
+      "transactions": 11632,
+      "frauds": 24,
+      "alerts": 47,
+      "TP": 20,
+      "FP": 27,
+      "recall": 0.8333333333333334,
+      "precision": 0.425531914893617,
+      "false_alert_rate_per_10k_legit": 23.259820813232253
+    },
+    {
+      "segment": "<$10",
+      "segment_type": "amount_band",
+      "transactions": 96210,
+      "frauds": 90,
+      "alerts": 180,
+      "TP": 84,
+      "FP": 96,
+      "recall": 0.9333333333333332,
+      "precision": 0.4666666666666667,
+      "false_alert_rate_per_10k_legit": 9.987515605493131
+    },
+    {
+      "segment": "$10-49",
+      "segment_type": "amount_band",
+      "transactions": 96476,
+      "frauds": 187,
+      "alerts": 390,
+      "TP": 174,
+      "FP": 216,
+      "recall": 0.93048128342246,
+      "precision": 0.4461538461538462,
+      "false_alert_rate_per_10k_legit": 22.43246892168368
+    },
+    {
+      "segment": "$50-99",
+      "segment_type": "amount_band",
+      "transactions": 111195,
+      "frauds": 9,
+      "alerts": 23,
+      "TP": 6,
+      "FP": 17,
+      "recall": 0.6666666666666666,
+      "precision": 0.2608695652173913,
+      "false_alert_rate_per_10k_legit": 1.5289694745741371
+    },
+    {
+      "segment": "$100-249",
+      "segment_type": "amount_band",
+      "transactions": 56475,
+      "frauds": 48,
+      "alerts": 187,
+      "TP": 46,
+      "FP": 141,
+      "recall": 0.9583333333333334,
+      "precision": 0.2459893048128342,
+      "false_alert_rate_per_10k_legit": 24.988037641554573
+    },
+    {
+      "segment": "$250-499",
+      "segment_type": "amount_band",
+      "transactions": 6317,
+      "frauds": 349,
+      "alerts": 433,
+      "TP": 348,
+      "FP": 85,
+      "recall": 0.997134670487106,
+      "precision": 0.8036951501154734,
+      "false_alert_rate_per_10k_legit": 142.42627345844505
+    },
+    {
+      "segment": "$500-999",
+      "segment_type": "amount_band",
+      "transactions": 2971,
+      "frauds": 493,
+      "alerts": 757,
+      "TP": 488,
+      "FP": 269,
+      "recall": 0.9898580121703854,
+      "precision": 0.6446499339498019,
+      "false_alert_rate_per_10k_legit": 1085.552865213882
+    },
+    {
+      "segment": "$1,000+",
+      "segment_type": "amount_band",
+      "transactions": 1055,
+      "frauds": 182,
+      "alerts": 262,
+      "TP": 177,
+      "FP": 85,
+      "recall": 0.9725274725274724,
+      "precision": 0.6755725190839694,
+      "false_alert_rate_per_10k_legit": 973.6540664375716
+    },
+    {
+      "segment": "<25",
+      "segment_type": "age_band",
+      "transactions": 29977,
+      "frauds": 118,
+      "alerts": 183,
+      "TP": 118,
+      "FP": 65,
+      "recall": 1.0,
+      "precision": 0.644808743169399,
+      "false_alert_rate_per_10k_legit": 21.76898087678757
+    },
+    {
+      "segment": "25-34",
+      "segment_type": "age_band",
+      "transactions": 75639,
+      "frauds": 237,
+      "alerts": 400,
+      "TP": 227,
+      "FP": 173,
+      "recall": 0.9578059071729956,
+      "precision": 0.5675,
+      "false_alert_rate_per_10k_legit": 22.94368849632636
+    },
+    {
+      "segment": "35-49",
+      "segment_type": "age_band",
+      "transactions": 127678,
+      "frauds": 362,
+      "alerts": 599,
+      "TP": 349,
+      "FP": 250,
+      "recall": 0.9640883977900552,
+      "precision": 0.5826377295492488,
+      "false_alert_rate_per_10k_legit": 19.636180841371075
+    },
+    {
+      "segment": "50-64",
+      "segment_type": "age_band",
+      "transactions": 76511,
+      "frauds": 370,
+      "alerts": 590,
+      "TP": 367,
+      "FP": 223,
+      "recall": 0.991891891891892,
+      "precision": 0.6220338983050847,
+      "false_alert_rate_per_10k_legit": 29.28776874482867
+    },
+    {
+      "segment": "65+",
+      "segment_type": "age_band",
+      "transactions": 60894,
+      "frauds": 271,
+      "alerts": 460,
+      "TP": 262,
+      "FP": 198,
+      "recall": 0.966789667896679,
+      "precision": 0.5695652173913044,
+      "false_alert_rate_per_10k_legit": 32.66087128647543
+    },
+    {
+      "segment": "Midwest",
+      "segment_type": "region",
+      "transactions": 104733,
+      "frauds": 376,
+      "alerts": 652,
+      "TP": 369,
+      "FP": 283,
+      "recall": 0.9813829787234044,
+      "precision": 0.5659509202453987,
+      "false_alert_rate_per_10k_legit": 27.118449169677167
+    },
+    {
+      "segment": "Northeast",
+      "segment_type": "region",
+      "transactions": 69879,
+      "frauds": 305,
+      "alerts": 459,
+      "TP": 299,
+      "FP": 160,
+      "recall": 0.980327868852459,
+      "precision": 0.6514161220043573,
+      "false_alert_rate_per_10k_legit": 22.99709661655216
+    },
+    {
+      "segment": "South",
+      "segment_type": "region",
+      "transactions": 140838,
+      "frauds": 443,
+      "alerts": 765,
+      "TP": 432,
+      "FP": 333,
+      "recall": 0.9751693002257336,
+      "precision": 0.5647058823529412,
+      "false_alert_rate_per_10k_legit": 23.71879340432352
+    },
+    {
+      "segment": "West",
+      "segment_type": "region",
+      "transactions": 55249,
+      "frauds": 234,
+      "alerts": 356,
+      "TP": 223,
+      "FP": 133,
+      "recall": 0.9529914529914528,
+      "precision": 0.6264044943820225,
+      "false_alert_rate_per_10k_legit": 24.17522493865309
+    },
+    {
+      "segment": "F",
+      "segment_type": "gender",
+      "transactions": 203467,
+      "frauds": 695,
+      "alerts": 1209,
+      "TP": 668,
+      "FP": 541,
+      "recall": 0.9611510791366906,
+      "precision": 0.5525227460711332,
+      "false_alert_rate_per_10k_legit": 26.680212258102696
+    },
+    {
+      "segment": "M",
+      "segment_type": "gender",
+      "transactions": 167232,
+      "frauds": 663,
+      "alerts": 1023,
+      "TP": 655,
+      "FP": 368,
+      "recall": 0.9879336349924586,
+      "precision": 0.6402737047898338,
+      "false_alert_rate_per_10k_legit": 22.09294646662945
+    }
+  ],
+  "demographic_ablation": [
+    {
+      "model": "Production (no demographics)",
+      "val_pr_auc": 0.9757053210765482,
+      "diff_vs_production": 0.0
+    },
+    {
+      "model": "Ablation (+ age, gender)",
+      "val_pr_auc": 0.9836271108968462,
+      "diff_vs_production": 0.007921789820298
+    }
+  ],
+  "realism_off_pattern_fraud": [
+    {
+      "fraud group": "On-pattern (night & >= $250)",
+      "frauds": 855,
+      "share_of_fraud": 0.6296023564064801,
+      "fraud_usd": 604043.46,
+      "recall_at_threshold": 0.9941520467836256,
+      "pr_auc_vs_all_legit": 0.988833570917121
+    },
+    {
+      "fraud group": "Off-pattern (day or < $250)",
+      "frauds": 503,
+      "share_of_fraud": 0.3703976435935199,
+      "fraud_usd": 134011.6,
+      "recall_at_threshold": 0.9403578528827038,
+      "pr_auc_vs_all_legit": 0.889910472856443
+    }
+  ],
+  "realism_label_noise": [
+    {
+      "unreported_fraud_cards": "0%",
+      "train_frauds_labelled": 6386,
+      "test_pr_auc_true_labels": 0.965476634352524
+    },
+    {
+      "unreported_fraud_cards": "20%",
+      "train_frauds_labelled": 5130,
+      "test_pr_auc_true_labels": 0.9496699910546724
+    },
+    {
+      "unreported_fraud_cards": "40%",
+      "train_frauds_labelled": 3803,
+      "test_pr_auc_true_labels": 0.9188720836057972
+    }
+  ],
+  "monitoring_stress_tests": [
+    {
+      "Unnamed: 0": "December as observed",
+      "alerts_per_day": 18.193548387096776,
+      "precision": 0.4450354609929078,
+      "recall": 0.9728682170542636,
+      "psi_score": 0.0541553123382601,
+      "psi_hour": 0.0001130729290181,
+      "psi_amt_to_cust_avg": 0.0001864534287424,
+      "missing_rate_pct": 0.0078831572761541
+    },
+    {
+      "Unnamed: 0": "A. Fraud shifts to daytime",
+      "alerts_per_day": 17.419354838709676,
+      "precision": 0.4203703703703704,
+      "recall": 0.8798449612403101,
+      "psi_score": 0.0541553123382601,
+      "psi_hour": 0.0001573477982353,
+      "psi_amt_to_cust_avg": 0.0001864534287424,
+      "missing_rate_pct": 0.0078831572761541
+    },
+    {
+      "Unnamed: 0": "Week 1 as observed",
+      "alerts_per_day": 18.625,
+      "precision": 0.5369127516778524,
+      "recall": 0.975609756097561,
+      "psi_score": 0.038911560590986,
+      "psi_hour": 0.0001862616446441,
+      "psi_amt_to_cust_avg": 0.0003050408852205,
+      "missing_rate_pct": 0.018846588767433
+    },
+    {
+      "Unnamed: 0": "B. Feature-store outage (week 1)",
+      "alerts_per_day": 28.125,
+      "precision": 0.3555555555555555,
+      "recall": 0.975609756097561,
+      "psi_score": 0.0453106219507866,
+      "psi_hour": 0.0001862616446441,
+      "psi_amt_to_cust_avg": 2.5004391205187044,
+      "missing_rate_pct": 29.925241864555847
+    }
+  ],
+  "feature_importance": [
+    {
+      "feature": "log_amt",
+      "label": "Transaction amount (log)",
+      "pr_auc_drop": 0.7203910719001817,
+      "pr_auc_drop_std": 0.0026833953104213,
+      "gain_share": 0.2155919618481055
+    },
+    {
+      "feature": "category",
+      "label": "Merchant category",
+      "pr_auc_drop": 0.5934872172396418,
+      "pr_auc_drop_std": 0.0086022109530461,
+      "gain_share": 0.0956907848662648
+    },
+    {
+      "feature": "amt_sum_prior_24h",
+      "label": "Card spend in prior 24h ($)",
+      "pr_auc_drop": 0.1472306523200346,
+      "pr_auc_drop_std": 0.0071516023225749,
+      "gain_share": 0.2956844394854765
+    },
+    {
+      "feature": "is_night",
+      "label": "Night-time (22:00-04:00)",
+      "pr_auc_drop": 0.0357291292322127,
+      "pr_auc_drop_std": 0.0012712001235511,
+      "gain_share": 0.1766596052047767
+    },
+    {
+      "feature": "amt_to_cust_avg",
+      "label": "Amount / customer's historical average",
+      "pr_auc_drop": 0.0154794860919844,
+      "pr_auc_drop_std": 0.0012043274239849,
+      "gain_share": 0.105848295925951
+    },
+    {
+      "feature": "hour",
+      "label": "Hour of day",
+      "pr_auc_drop": 0.0122854117491516,
+      "pr_auc_drop_std": 0.0014779945030614,
+      "gain_share": 0.0058957835650857
+    },
+    {
+      "feature": "hours_since_last_txn",
+      "label": "Hours since card's previous transaction",
+      "pr_auc_drop": 0.0109488934770873,
+      "pr_auc_drop_std": 0.0008501426364797,
+      "gain_share": 0.0036749715341604
+    },
+    {
+      "feature": "n_txn_prior_24h",
+      "label": "Card transactions in prior 24h",
+      "pr_auc_drop": 0.0105045793227904,
+      "pr_auc_drop_std": 0.0006852505510488,
+      "gain_share": 0.0130017171413869
+    },
+    {
+      "feature": "amt_to_cust_category_avg",
+      "label": "Amount / customer's average in this category",
+      "pr_auc_drop": 0.0086278367895969,
+      "pr_auc_drop_std": 0.0013805756781979,
+      "gain_share": 0.0084525807842817
+    },
+    {
+      "feature": "amt_to_cust_avg_7d",
+      "label": "Amount / customer's 7-day average",
+      "pr_auc_drop": 0.0067670110760635,
+      "pr_auc_drop_std": 0.0003846650713525,
+      "gain_share": 0.0029943855386217
+    },
+    {
+      "feature": "amt_zscore_cust",
+      "label": "Amount z-score vs customer history",
+      "pr_auc_drop": 0.0044604987212119,
+      "pr_auc_drop_std": 0.0002960171759317,
+      "gain_share": 0.0178776545657457
+    },
+    {
+      "feature": "log_city_pop",
+      "label": "Customer city population (log)",
+      "pr_auc_drop": 0.0039942964560654,
+      "pr_auc_drop_std": 0.0008489775772878,
+      "gain_share": 0.0008555128105435
+    },
+    {
+      "feature": "amt_sum_prior_1h",
+      "label": "Card spend in prior 1h ($)",
+      "pr_auc_drop": 0.0031884388288775,
+      "pr_auc_drop_std": 0.0005532924593423,
+      "gain_share": 0.0103442999194381
+    },
+    {
+      "feature": "n_txn_prior_7d",
+      "label": "Card transactions in prior 7d",
+      "pr_auc_drop": 0.0029451124485084,
+      "pr_auc_drop_std": 0.0006628505536255,
+      "gain_share": 0.0139577386007512
+    },
+    {
+      "feature": "cust_n_prior_txn",
+      "label": "Card history length (txns)",
+      "pr_auc_drop": 0.0012485193213245,
+      "pr_auc_drop_std": 0.0011080735921677,
+      "gain_share": 0.0102679362100134
+    },
+    {
+      "feature": "day_of_week",
+      "label": "Day of week",
+      "pr_auc_drop": 0.0010015133106064,
+      "pr_auc_drop_std": 0.0002598127456783,
+      "gain_share": 0.0090720728671291
+    },
+    {
+      "feature": "n_txn_prior_1h",
+      "label": "Card transactions in prior 1h",
+      "pr_auc_drop": 0.0005605145269062,
+      "pr_auc_drop_std": 0.0001142978302064,
+      "gain_share": 0.005503284954546
+    },
+    {
+      "feature": "is_first_merchant_for_cust",
+      "label": "First time at this merchant",
+      "pr_auc_drop": 0.0001100323803803,
+      "pr_auc_drop_std": 0.0001006143877466,
+      "gain_share": 0.0073803002839446
+    },
+    {
+      "feature": "dist_home_merchant_km",
+      "label": "Distance home to merchant (km)",
+      "pr_auc_drop": 0.0001032279368321,
+      "pr_auc_drop_std": 0.000158131033074,
+      "gain_share": 0.0003958802012872
+    },
+    {
+      "feature": "is_first_category_for_cust",
+      "label": "First time in this category",
+      "pr_auc_drop": 1.1950954331374495e-05,
+      "pr_auc_drop_std": 5.694832587316119e-06,
+      "gain_share": 0.0008507936924896
+    }
+  ],
+  "triage_band_table": [
+    {
+      "band": "Auto-hold",
+      "split": "validation",
+      "transactions": 1843,
+      "per_day": 13.164285714285716,
+      "frauds": 1751,
+      "fraud_rate_in_band": 0.9500813890396094,
+      "fraud_usd": 946415.93,
+      "share_of_all_fraud": 0.9181961195595176
+    },
+    {
+      "band": "Priority review",
+      "split": "validation",
+      "transactions": 455,
+      "per_day": 3.25,
+      "frauds": 88,
+      "fraud_rate_in_band": 0.1934065934065934,
+      "fraud_usd": 29862.65,
+      "share_of_all_fraud": 0.0461457787100157
+    },
+    {
+      "band": "Standard review",
+      "split": "validation",
+      "transactions": 671,
+      "per_day": 4.792857142857143,
+      "frauds": 32,
+      "fraud_rate_in_band": 0.0476900149031296,
+      "fraud_usd": 9719.89,
+      "share_of_all_fraud": 0.0167802831672784
+    },
+    {
+      "band": "Monitor only",
+      "split": "validation",
+      "transactions": 11028,
+      "per_day": 78.77142857142857,
+      "frauds": 33,
+      "fraud_rate_in_band": 0.0029923830250272,
+      "fraud_usd": 4960.27,
+      "share_of_all_fraud": 0.0173046670162559
+    },
+    {
+      "band": "No action",
+      "split": "validation",
+      "transactions": 357008,
+      "per_day": 2550.057142857143,
+      "frauds": 3,
+      "fraud_rate_in_band": 8.4031730381392e-06,
+      "fraud_usd": 33.53,
+      "share_of_all_fraud": 0.0015731515469323
+    },
+    {
+      "band": "Auto-hold",
+      "split": "test",
+      "transactions": 1302,
+      "per_day": 10.093023255813954,
+      "frauds": 1232,
+      "fraud_rate_in_band": 0.946236559139785,
+      "fraud_usd": 693965.86,
+      "share_of_all_fraud": 0.9072164948453608
+    },
+    {
+      "band": "Priority review",
+      "split": "test",
+      "transactions": 387,
+      "per_day": 3.0,
+      "frauds": 73,
+      "fraud_rate_in_band": 0.1886304909560723,
+      "fraud_usd": 26590.090000000004,
+      "share_of_all_fraud": 0.0537555228276877
+    },
+    {
+      "band": "Standard review",
+      "split": "test",
+      "transactions": 543,
+      "per_day": 4.209302325581396,
+      "frauds": 18,
+      "fraud_rate_in_band": 0.0331491712707182,
+      "fraud_usd": 7088.12,
+      "share_of_all_fraud": 0.0132547864506627
+    },
+    {
+      "band": "Monitor only",
+      "split": "test",
+      "transactions": 9189,
+      "per_day": 71.23255813953489,
+      "frauds": 27,
+      "fraud_rate_in_band": 0.0029382957884427,
+      "fraud_usd": 10181.219999999998,
+      "share_of_all_fraud": 0.0198821796759941
+    },
+    {
+      "band": "No action",
+      "split": "test",
+      "transactions": 359278,
+      "per_day": 2785.1007751937987,
+      "frauds": 8,
+      "fraud_rate_in_band": 2.226687968648233e-05,
+      "fraud_usd": 229.77,
+      "share_of_all_fraud": 0.0058910162002945
+    }
+  ],
+  "monitoring_summary": {
+    "live_months": [
+      "2020-08",
+      "2020-09",
+      "2020-10",
+      "2020-11",
+      "2020-12"
+    ],
+    "triggers_fired": [
+      {
+        "period": "2020-12",
+        "trigger": "Any feature PSI > 0.2",
+        "detail": "n_txn_prior_24h, amt_sum_prior_24h",
+        "labels_mature": false
+      }
+    ],
+    "live_precision_range": [
+      0.4450354609929078,
+      0.6793478260869565
+    ],
+    "live_recall_range": [
+      0.9676470588235294,
+      0.9855421686746988
+    ],
+    "max_live_score_psi": 0.05415531233826013
+  },
+  "triage_bands": {
+    "hold": 0.24362074234467487,
+    "review": 0.03403011699493562,
+    "standard": 0.008447008853411628,
+    "monitor": 0.00016928301623390284
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "recommended_option": "Cost-minimising",
+  "thresholds": {
+    "Cost-minimising": 0.008447008853411628,
+    "Capacity-constrained (fill 100/day)": 0.00016928301623390284,
+    "Recall target (80%)": 0.8889368437434058
+  },
+  "validation_days": 140,
+  "test_days": 129
+}

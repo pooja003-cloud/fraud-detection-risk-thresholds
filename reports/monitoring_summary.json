@@ -1,0 +1,26 @@
+{
+  "live_months": [
+    "2020-08",
+    "2020-09",
+    "2020-10",
+    "2020-11",
+    "2020-12"
+  ],
+  "triggers_fired": [
+    {
+      "period": "2020-12",
+      "trigger": "Any feature PSI > 0.2",
+      "detail": "n_txn_prior_24h, amt_sum_prior_24h",
+      "labels_mature": false
+    }
+  ],
+  "live_precision_range": [
+    0.4450354609929078,
+    0.6793478260869565
+  ],
+  "live_recall_range": [
+    0.9676470588235294,
+    0.9855421686746988
+  ],
+  "max_live_score_psi": 0.05415531233826013
+}

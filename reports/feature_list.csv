@@ -1,0 +1,23 @@
+group,feature,description
+Transaction,log_amt,Transaction amount (log)
+Transaction,category,Merchant category
+Transaction,hour,Hour of day
+Transaction,day_of_week,Day of week
+Transaction,is_night,Night-time (22:00-04:00)
+Velocity (backward windows),n_txn_prior_1h,Card transactions in prior 1h
+Velocity (backward windows),amt_sum_prior_1h,Card spend in prior 1h ($)
+Velocity (backward windows),n_txn_prior_24h,Card transactions in prior 24h
+Velocity (backward windows),amt_sum_prior_24h,Card spend in prior 24h ($)
+Velocity (backward windows),n_txn_prior_7d,Card transactions in prior 7d
+Deviation from the customer's norm,amt_to_cust_avg,Amount / customer's historical average
+Deviation from the customer's norm,amt_zscore_cust,Amount z-score vs customer history
+Deviation from the customer's norm,amt_to_cust_avg_7d,Amount / customer's 7-day average
+Deviation from the customer's norm,amt_to_cust_category_avg,Amount / customer's average in this category
+Recency and novelty,hours_since_last_txn,Hours since card's previous transaction
+Recency and novelty,is_first_merchant_for_cust,First time at this merchant
+Recency and novelty,is_first_category_for_cust,First time in this category
+Recency and novelty,cust_n_prior_txn,Card history length (txns)
+Customer context,log_city_pop,Customer city population (log)
+Customer context,dist_home_merchant_km,Distance home to merchant (km)
+"Demographic (ablation only, not in production model)",cust_age,Customer age
+"Demographic (ablation only, not in production model)",gender_is_male,Customer gender (male)

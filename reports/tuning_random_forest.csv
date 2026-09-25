@@ -1,0 +1,3 @@
+min_samples_leaf,val_pr_auc,fit_seconds
+5,0.9385771047169958,70
+25,0.9148217849244362,70

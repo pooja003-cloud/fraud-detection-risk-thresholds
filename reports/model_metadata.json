@@ -1,0 +1,32 @@
+{
+  "lr_C": 0.001,
+  "rf_min_samples_leaf": 5,
+  "lgbm_treatment": "SMOTE to 1:10",
+  "lgbm_num_leaves": 15,
+  "lgbm_n_trees": 1504,
+  "f1_thresholds_from_validation": {
+    "Rules baseline": 1.0,
+    "Logistic regression": 0.9632313385400147,
+    "Random forest": 0.436565504815986,
+    "LightGBM": 0.28450878187350687,
+    "LightGBM (undersampled)": 0.9068411946691832
+  },
+  "rules": [
+    {
+      "name": "R1 high amount at night",
+      "definition": "Amount >= $250 between 22:00 and 04:00"
+    },
+    {
+      "name": "R2 24h spend spike",
+      "definition": "Card spend in last 24h (incl. this txn) >= $2500"
+    },
+    {
+      "name": "R3 far above customer norm",
+      "definition": "Amount >= 8x the customer's historical average (min. 30 prior txns)"
+    },
+    {
+      "name": "R4 high-risk category, large amount",
+      "definition": "Category in ('shopping_net', 'misc_net', 'grocery_pos') and amount >= $750"
+    }
+  ]
+}

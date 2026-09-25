@@ -1,0 +1,8 @@
+signal,trigger,needs labels?,action
+Score PSI,> 0.20,No,Investigate population/model shift; check feature PSI to localise
+Any key-feature PSI,> 0.20,No,"Check the data pipeline first, then behaviour change; review the threshold"
+Precision at threshold,< 40%  (validation 63%),Yes (60-day lag),Re-tune the threshold on recent matured data
+Recall at threshold,< 90%  (validation 98%),Yes (60-day lag),Investigate new fraud patterns; lower the threshold as an interim measure; retrain
+Alerts per day,> 100 (capacity),No,Raise the threshold temporarily; add staff; investigate cause
+Missing-input rate,> 2.0%,No,Incident: feature-store/pipeline check; fall back to rules if needed
+Score-tail PSI (top 10% of scores),> 0.20,No,Changes among the scores that generate alerts; standard PSI cannot see these
