@@ -98,7 +98,7 @@ GLOSSARY = [
     ("Exploratory data analysis (EDA)", "Looking at the data with charts and tables before modelling."),
     ("Sparkov", "The simulator that generated this dataset's card payments."),
     ("Streamlit", "A Python tool for building simple interactive web dashboards."),
-    ("Anti-money-laundering (AML)", "The field of detecting criminals moving illegal money through the financial system. Related to, but different from, card fraud."),
+    ("Anti-money-laundering (AML)", "The field of detecting illegally obtained money moving through the financial system. Related to, but different from, card fraud."),
     ("Politically exposed person (PEP)", "A customer in a prominent public role, who carries a higher money-laundering risk."),
     ("Suspicious Activity Report (SAR)", "A report that financial institutions file with regulators about possible crime."),
     ("Merchant category code (MCC)", "The standard four-digit code for a merchant's type of business."),
@@ -276,9 +276,9 @@ def readme(c) -> str:
 
 **How can a financial institution catch more fraudulent card transactions without generating an unmanageable number of false alerts?**
 
-## In plain English
+## Overview
 
-When criminals use stolen card details, banks lose money. A bank sees thousands of card payments a day and can't check them all by hand, so it has to decide which few payments a person should look at.
+Card fraud is a daily cost for every bank. A bank processes thousands of card payments a day but can only review a small share of them by hand, so it needs a reliable way to decide which payments deserve a closer look.
 
 This project builds that decision system and tests it on {f['Transactions']} example card payments from a public, computer-generated dataset:
 1. **It learns what fraud looked like in the past**, for example large purchases late at night, sudden bursts of spending, or amounts far above what the customer normally spends.
